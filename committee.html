@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mini MBTI Test</title>
+
+    <style>
+
+        body
+        {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+
+        h1
+        {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .question
+        {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        button
+        {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #e0e0e0;
+        }
+
+        button:hover
+        {
+            background-color: #d0d0d0;
+        }
+
+        .selected
+        {
+            background-color: #7db7ff;
+            color: white;
+        }
+
+        #result
+        {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .submit-container
+        {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Mini MBTI Personality Test</h1>
+
+    <!-- Question 1 -->
+    <div class="question">
+        <p>1. Do you enjoy large social events?</p>
+
+        <button onclick="selectAnswer(this, 'E', 1)">Yes</button>
+        <button onclick="selectAnswer(this, 'I', 1)">No</button>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question">
+        <p>2. Do you prefer planning ahead?</p>
+
+        <button onclick="selectAnswer(this, 'J', 2)">Yes</button>
+        <button onclick="selectAnswer(this, 'P', 2)">No</button>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question">
+        <p>3. Do you focus more on facts than imagination?</p>
+
+        <button onclick="selectAnswer(this, 'S', 3)">Yes</button>
+        <button onclick="selectAnswer(this, 'N', 3)">No</button>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+        <p>4. Do you make decisions using logic first?</p>
+
+        <button onclick="selectAnswer(this, 'T', 4)">Yes</button>
+        <button onclick="selectAnswer(this, 'F', 4)">No</button>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question">
+        <p>5. Do you feel energized after talking with people?</p>
+
+        <button onclick="selectAnswer(this, 'E', 5)">Yes</button>
+        <button onclick="selectAnswer(this, 'I', 5)">No</button>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question">
+        <p>6. Do you usually trust experience over ideas?</p>
+
+        <button onclick="selectAnswer(this, 'S', 6)">Yes</button>
+        <button onclick="selectAnswer(this, 'N', 6)">No</button>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question">
+        <p>7. Do you care more about fairness than emotions?</p>
+
+        <button onclick="selectAnswer(this, 'T', 7)">Yes</button>
+        <button onclick="selectAnswer(this, 'F', 7)">No</button>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question">
+        <p>8. Do you like having a fixed schedule?</p>
+
+        <button onclick="selectAnswer(this, 'J', 8)">Yes</button>
+        <button onclick="selectAnswer(this, 'P', 8)">No</button>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question">
+        <p>9. Do you prefer spending time alone?</p>
+
+        <button onclick="selectAnswer(this, 'I', 9)">Yes</button>
+        <button onclick="selectAnswer(this, 'E', 9)">No</button>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question">
+        <p>10. Do you enjoy creative brainstorming?</p>
+
+        <button onclick="selectAnswer(this, 'N', 10)">Yes</button>
+        <button onclick="selectAnswer(this, 'S', 10)">No</button>
+    </div>
+
+    <div class="submit-container">
+        <button onclick="showResult()">See My Result</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+
+        let scores =
+        {
+            E: 0,
+            I: 0,
+            S: 0,
+            N: 0,
+            T: 0,
+            F: 0,
+            J: 0,
+            P: 0
+        };
+
+        let answered =
+        {
+
+        };
+
+        function selectAnswer(button, type, questionNumber)
+        {
+            // prevent multiple answers
+            if (answered[questionNumber])
+            {
+                return;
+            }
+
+            scores[type]++;
+
+            answered[questionNumber] = true;
+
+            // remove selection from sibling buttons
+            let parent = button.parentElement;
+
+            let buttons = parent.getElementsByTagName("button");
+
+            for (let i = 0; i < buttons.length; i++)
+            {
+                buttons[i].classList.remove("selected");
+            }
+
+            // highlight selected button
+            button.classList.add("selected");
+        }
+
+        function showResult()
+        {
+            let result = "";
+
+            result += scores.E >= scores.I ? "E" : "I";
+            result += scores.S >= scores.N ? "S" : "N";
+            result += scores.T >= scores.F ? "T" : "F";
+            result += scores.J >= scores.P ? "J" : "P";
+
+            document.getElementById("result").innerHTML =
+                "Your MBTI Type is: " + result;
+        }
+
+    </script>
+
+</body>
+
+</html>
